@@ -16,4 +16,8 @@ router.post('/newUser', async(req, res) => {
   userController.createUser(req, res);
 })
 
+router.get('/findAll', async(req, res) => {
+  userController.findAll(req, res)
+})
+
 module.exports = router;
