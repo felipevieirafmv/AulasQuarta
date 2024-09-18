@@ -9,18 +9,31 @@ class UserController {
         try {
             const newUser = await this.userService.create(email, dataNasc, password);
             res.status(200).json(newUser);
+            res.send();
         } catch (error) {
-            res.status(500).json({ error: "Ocorreu um erro"})
+            res.status(500).json({ error: "Ocorreu um erro ao criar o usuário"})
         }
     }
 
-    async findAll(req, res){
+    async findAllUsers(req, res){
         try{
             const allUsers = await this.userService.findAll();
             res.status(200).json(allUsers);
         }
         catch(error){
-            console.log(error)
+            res.status(500)
+                .json({ error: "Ocorreu um erro ao localizar todos os usuários." });
+        }
+    }
+
+    async findUserById(req, res){
+        const { id } = req.query;
+        try {
+            const User = await this.userService.findById(id);
+            res.status(200).json(User);
+        } catch (error) {
+            res.status(500)
+                .json({ error: "Ocorreu um erro ao localizar os usuário pelo ID." })
         }
     }
 }

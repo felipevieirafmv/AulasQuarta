@@ -17,7 +17,11 @@ router.post('/newUser', async(req, res) => {
 })
 
 router.get('/findAll', async(req, res) => {
-  userController.findAll(req, res)
+  userController.findAllUsers(req, res)
+})
+
+router.get('/getUserById', async (req, res) => {
+  userController.findUserById(req, res);
 })
 
 module.exports = router;

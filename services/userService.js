@@ -15,7 +15,7 @@ class UserService{
             return newUser ? newUser : null
         }
         catch(error){
-            console.log(error)
+            throw error;
         }
     }
 
@@ -25,7 +25,16 @@ class UserService{
             return allUsers ? allUsers : null
         }
         catch(error){
-            console.log(error)
+            throw error;
+        }
+    }
+
+    async findById(id){
+        try {
+            const User = await this.User.findByPk(id);
+            return User ? User : null;
+        } catch (error) {
+            throw error;
         }
     }
 }
