@@ -23,21 +23,15 @@ app.use('/users', usersRouter);
 
 const db = require('./models')
 
-async function applyDataStructure(){
-    await db.sequelize.sync({alter: true});
+if (process.env.NODE_ENV !== 'production') {
+    sequelize.sync({ force: true }) 
+        .then(() => {
+            console.log('Banco de dados sincronizado');
+        })
+        .catch(err => {
+            console.error('Erro ao sincronizar o banco de dados:', err);
+        });
 }
-
-applyDataStructure();
-
-// if (process.env.NODE_ENV !== 'production') {
-//     sequelize.sync({ force: true }) 
-//         .then(() => {
-//             console.log('Banco de dados sincronizado');
-//         })
-//         .catch(err => {
-//             console.error('Erro ao sincronizar o banco de dados:', err);
-//         });
-// }
 
 var port = 8080
 
