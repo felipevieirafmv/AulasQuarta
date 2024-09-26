@@ -1,5 +1,7 @@
 const db = require('../models')
 const auth = require('../auth')
+const bcrypt = require('bcrypt');
+var roundSalts = 10;
 
 class UserService{
     constructor(UserModel){
@@ -8,10 +10,11 @@ class UserService{
 
     async create(email, dataNasc, password){
         try{
+            const hashPassword = await bcrypt.hash(password, parseInt(roundSalts));
             const newUser = await this.User.create({
                 email,
-                password,
-                dataNasc
+                dataNasc,
+                password: hashPassword
             })
             return newUser ? newUser : null
         }
@@ -45,8 +48,14 @@ class UserService{
                 where: { email }
             });
             if(User){
-                User.dataValues.token = await auth.generateToken(User);
-                User.dataValues.password = "";
+                if(await bcrypt.compare(password, User.password)){
+                    const token = await auth.generateToken(User);
+                    User.dataValues.token = token;
+                    User.dataValues.password = "";
+                }
+                else{
+                    throw new Error('Senha inválida');
+                }
             }
             return User ? User : null
         } catch (error) {

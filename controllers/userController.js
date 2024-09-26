@@ -11,7 +11,7 @@ class UserController {
             res.status(200).json(newUser);
             res.send();
         } catch (error) {
-            res.status(500).json({ error: "Ocorreu um erro ao criar o usuário"})
+            res.status(500).json({ error: "Ocorreu um erro ao criar o usuário"});
         }
     }
 
