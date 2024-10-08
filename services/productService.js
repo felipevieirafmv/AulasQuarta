@@ -1,3 +1,5 @@
+const product = require("../models/product");
+
 class ProductService{
     constructor(ProductModel){
         this.Product = ProductModel;
@@ -30,7 +32,7 @@ class ProductService{
 
     async update(id, name, description, price, quantity){
         try {
-            const Product = await this.Product.update(
+            const updatedProducts = await this.Product.update(
                 {
                     name,
                     description,
@@ -43,8 +45,7 @@ class ProductService{
                     }
                 }
             );
-
-            return Product ? Product : null;
+            return updatedProducts ? updatedProducts : null;
         } catch (error) {
             throw error;
         }

@@ -9,7 +9,7 @@ const ProductController = require("../controllers/productController")
 const productService = new ProductService(db.Product);
 const productController = new ProductController(productService);
 
-router.get('/', function (req, res, next) {
+router.get('/teste', function (req, res, next) {
 	res.send("Modulo de produtos rodando.")
 })
 
