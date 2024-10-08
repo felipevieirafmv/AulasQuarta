@@ -10,6 +10,7 @@ async function generateToken(user) {
         process.env.SECRET,
         { expiresIn: "1h" }
     )
+    return token;
 }
 
 async function verifyToken(req, res, next){

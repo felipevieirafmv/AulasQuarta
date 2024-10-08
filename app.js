@@ -24,7 +24,7 @@ app.use('/users', usersRouter);
 const db = require('./models')
 
 if (process.env.NODE_ENV !== 'production') {
-    sequelize.sync({ force: true }) 
+    sequelize.sync() 
         .then(() => {
             console.log('Banco de dados sincronizado');
         })
