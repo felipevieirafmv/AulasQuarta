@@ -25,5 +25,10 @@ module.exports = (sequelize) =>{
             allowNull: false
         }
     });
+
+    Product.associate = function(models) {
+        Product.belongsToMany(models.Cart, { through: models.CartProduct });
+    };
+
     return Product;
 };

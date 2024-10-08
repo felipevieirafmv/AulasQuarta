@@ -21,5 +21,10 @@ module.exports = (sequelize) =>{
             allowNull: true
         }
     });
+
+    User.associate = function(models) {
+        User.hasMany(models.Cart, { foreignKey: 'userId', as: 'carts' });
+    };
+    
     return User;
 };
