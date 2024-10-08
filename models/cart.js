@@ -12,16 +12,15 @@ module.exports = (sequelize) =>{
             type: Sequelize.INTEGER,
             allowNull:false,
             references: {
-                model: "User",
+                model: "Users",
                 key: "id"
-            }
+            },
+            onDelete: 'CASCADE'
         }
     });
 
     Cart.associate = function(models) {
-        Cart.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
-
-        Cart.belongsToMany(models.Product, { through: models.CartProduct });
+        Cart.belongsTo(models.User, { foreignKey: 'userId', as: 'users' });
     };
 
     return Cart;
