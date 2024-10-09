@@ -3,6 +3,9 @@ const product = require("../models/product");
 const user = require("../models/user");
 const cartProduct = require("../models/cartProduct");
 const { Op } = require('sequelize');
+const db = require('../models')
+
+const Product = db.Product;
 
 class CartService{
     constructor(CartModel, CartProductModel){
@@ -27,10 +30,14 @@ class CartService{
             const cart = await this.Cart.findOne({
                 where: { userId }
             });
+            const product = await Product.findOne({
+                where: { id: productId }
+            })
             const addedItem = await this.CartProduct.create({
                 cartId: cart.id,
                 productId,
-                quantity
+                quantity,
+                value: product.price
             })
 
             return addedItem ? addedItem : null;

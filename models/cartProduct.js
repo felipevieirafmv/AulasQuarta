@@ -13,6 +13,10 @@ module.exports = (sequelize) => {
             allowNull: false,
             defaultValue: 1,
         },
+        value: {
+            type: Sequelize.FLOAT,
+            allowNull: false,
+        },
         cartId:{
             type: Sequelize.INTEGER,
             allowNull:false,
