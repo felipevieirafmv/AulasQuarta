@@ -1,3 +1,7 @@
+const db = require('../models');
+const CartService = require("../services/cartService");
+const cartService = new CartService(db.Cart, db.CartProduct);
+
 class UserController {
     constructor(UserService){
         this.userService = UserService
@@ -8,6 +12,7 @@ class UserController {
 
         try {
             const newUser = await this.userService.create(email, dataNasc, password);
+            const newCart = await cartService.create(newUser.id);
             res.status(200).json(newUser);
             res.send();
         } catch (error) {

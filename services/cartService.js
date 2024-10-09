@@ -1,66 +1,43 @@
+const cart = require("../models/cart");
 const product = require("../models/product");
+const user = require("../models/user");
+const cartProduct = require("../models/cartProduct");
 
-class ProductService{
-    constructor(ProductModel){
-        this.Product = ProductModel;
+class CartService{
+    constructor(CartModel, CartProductModel){
+        this.Cart = CartModel;
+        this.CartProduct = CartProductModel;
     }
 
-    async create(name, description, price, quantity){
+    async create(userId){
         try{
-            const newProduct = await this.Product.create({
-                name,
-                description,
-                price,
+            const newCart = await this.Cart.create({
+                userId
+            })
+            return newCart ? newCart : null
+        }
+        catch(error){
+            throw error;
+        }
+    }
+
+    async addProduct(userId, productId, quantity){
+        try {
+            const cart = await this.Cart.findOne({
+                where: { userId }
+            });
+            const addedItem = await this.CartProduct.create({
+                cartId: cart.id,
+                productId,
                 quantity
             })
-            return newProduct ? newProduct : null
-        }
-        catch(error){
-            throw error;
-        }
-    }
 
-    async findAll(){
-        try{
-            const allProducts = await this.Product.findAll();
-            return allProducts ? allProducts : null
-        }
-        catch(error){
-            throw error;
-        }
-    }
-
-    async update(id, name, description, price, quantity){
-        try {
-            const updatedProducts = await this.Product.update(
-                {
-                    name,
-                    description,
-                    price,
-                    quantity
-                },
-                {
-                    where: {
-                        id
-                    }
-                }
-            );
-            return updatedProducts ? updatedProducts : null;
+            return addedItem ? addedItem : null;
         } catch (error) {
             throw error;
         }
     }
 
-    async delete(id){
-        try {
-            const deletedCount = await this.Product.destroy({
-                where: { id }
-            });
-            return deletedCount > 0;
-        } catch (error) {
-            throw error;
-        }
-    }
 }
 
-module.exports = ProductService
+module.exports = CartService
