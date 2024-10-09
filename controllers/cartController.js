@@ -26,6 +26,17 @@ class CartController {
             res.status(500).json({ error: "Ocorreu um erro ao adicionar um produto ao carrinho."});
         }
     }
+
+    async removeProduct(req, res){
+        const { userId, productId } = req.query;
+        
+        try {
+            const Removed = await this.cartService.removeProduct(userId, productId);
+            res.status(200).json(Removed);
+        } catch (error) {
+            res.status(500).json({ error: "Ocorreu um erro ao remover um produto ao carrinho."});
+        }
+    }
 }
 
 module.exports = CartController

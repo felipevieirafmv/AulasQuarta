@@ -17,4 +17,8 @@ router.post('/add', auth.verifyToken, async (req, res) => {
 	cartController.addProduct(req, res);
 })
 
+router.delete('/remove', auth.verifyToken, async (req, res) => {
+	cartController.removeProduct(req, res);
+})
+
 module.exports = router;
