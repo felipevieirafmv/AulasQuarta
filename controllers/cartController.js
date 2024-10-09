@@ -37,6 +37,17 @@ class CartController {
             res.status(500).json({ error: "Ocorreu um erro ao remover um produto ao carrinho."});
         }
     }
+
+    async findProducts(req, res){
+        const { cartId } = req.query;
+
+        try {
+            const products = await this.cartService.findAll(cartId);
+            res.status(200).json(products);
+        } catch (error) {
+            res.status(500).json({ error: "Ocorreu um erro ao buscar os produtos do carrinho."});
+        }
+    }
 }
 
 module.exports = CartController

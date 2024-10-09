@@ -57,6 +57,18 @@ class CartService{
             throw error;
         }
     }
+
+    async findAll(cartId){
+        try{
+            const cartProducts = await this.CartProduct.findAll({
+                where: { cartId }
+            });
+            return cartProducts ? cartProducts : null
+        }
+        catch(error){
+            throw error;
+        }
+    }
 }
 
 module.exports = CartService

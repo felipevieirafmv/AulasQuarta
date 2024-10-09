@@ -21,4 +21,8 @@ router.delete('/remove', auth.verifyToken, async (req, res) => {
 	cartController.removeProduct(req, res);
 })
 
+router.get('/', auth.verifyToken, async (req, res) => {
+	cartController.findProducts(req, res);
+})
+
 module.exports = router;
