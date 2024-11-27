@@ -32,7 +32,6 @@ class PaymentController {
         try {
             const payment = await this.paymentService.paymentStatus(transactionId);
             res.status(200).json(payment);
-            res.send();
         } catch (error) {
             res.status(500).json({ error: "Ocorreu um erro ao verificar o pagamento."});
         }
