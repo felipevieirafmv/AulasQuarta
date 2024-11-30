@@ -10,6 +10,7 @@ const usersRouter = require('./routes/users');
 const productsRouter = require('./routes/product');
 const cartsRouter = require('./routes/cart');
 const paymentsRouter = require('./routes/payment');
+const supplierRouter = require('./routes/supplier');
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.use('/users', usersRouter);
 app.use('/products', productsRouter);
 app.use('/cart', cartsRouter);
 app.use('/payment', paymentsRouter);
+app.use('/supplier', supplierRouter);
 
 if (process.env.NODE_ENV !== 'production') {
     sequelize.sync({ alter: true })
